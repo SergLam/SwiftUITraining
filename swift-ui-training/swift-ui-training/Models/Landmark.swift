@@ -10,6 +10,7 @@ import SwiftUI
 import CoreLocation
 
 let landmarkData: [Landmark] = load("landmarkData.json")
+let hikeData: [Hike] = load("hikeData.json")
 
 func load<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     let data: Data
@@ -33,6 +34,9 @@ func load<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     }
 }
 
+import SwiftUI
+import CoreLocation
+
 struct Landmark: Hashable, Codable, Identifiable {
     var id: Int
     var name: String
@@ -41,6 +45,8 @@ struct Landmark: Hashable, Codable, Identifiable {
     var state: String
     var park: String
     var category: Category
+    var isFavorite: Bool
+    var isFeatured: Bool
     
     var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
@@ -56,6 +62,7 @@ struct Landmark: Hashable, Codable, Identifiable {
         case featured = "Featured"
         case lakes = "Lakes"
         case rivers = "Rivers"
+        case mountains = "Mountains"
     }
 }
 
