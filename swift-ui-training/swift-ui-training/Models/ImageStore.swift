@@ -29,6 +29,17 @@ final class ImageStore {
         return Image(sizedImage, scale: Length(ImageStore.scale), label: Text(verbatim: name))
     }
     
+    static func loadImage(name: String) -> CGImage {
+        guard
+            let url = Bundle.main.url(forResource: name, withExtension: "jpg"),
+            let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
+            let image = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
+            else {
+                fatalError("Couldn't load image \(name).jpg from main bundle.")
+        }
+        return image
+    }
+    
     fileprivate func _guaranteeInitialImage(name: String) -> _ImageDictionary.Index {
         if let index = images.index(forKey: name) { return index }
         

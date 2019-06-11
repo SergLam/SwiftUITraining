@@ -11,6 +11,7 @@ import CoreLocation
 
 let landmarkData: [Landmark] = load("landmarkData.json")
 let hikeData: [Hike] = load("hikeData.json")
+let features = landmarkData.filter { $0.isFeatured }
 
 func load<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     let data: Data
@@ -52,6 +53,15 @@ struct Landmark: Hashable, Codable, Identifiable {
         CLLocationCoordinate2D(
             latitude: coordinates.latitude,
             longitude: coordinates.longitude)
+    }
+    
+    var featureImage: Image? {
+        guard isFeatured else { return nil }
+        
+        return Image(
+            ImageStore.loadImage(name: "\(imageName)_feature"),
+            scale: 2,
+            label: Text(verbatim: name))
     }
     
     func image(forSize size: Int) -> Image {
