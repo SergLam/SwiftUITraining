@@ -8,16 +8,19 @@
 
 import SwiftUI
 
-struct ContentView : View {
+struct LandmarkDetailsView: View {
+    
+    var landmark: Landmark
+    
     var body: some View {
-        Text("Hello World")
+        LandmarkDetail(landmark: landmark)
     }
 }
 
 #if DEBUG
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetailsView(landmark: landmarkData[0])
     }
 }
 #endif
